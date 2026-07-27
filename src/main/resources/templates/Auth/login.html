@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link th:href="@{/css/auth.css}" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+<main>
+    <center>
+        <div class="wrapper">
+            <form action="/LogIn" method="post">
+                <h1>ВХОД</h1>
+                <div class="form-group">
+
+                    <div class="d-grid col-10 mx-auto">
+                       <input type="text" placeholder="Login" required
+                               class="form-control" id="login" aria-describedby="login">
+                        <input type="password" placeholder="Password" required
+                               class="form-control" id="password" aria-describedby="password">
+                    </div>
+
+                    <div class="d-grid gap-2 col-10 mx-auto">
+                        <button type="submit" class="btn btn-primary">ВОЙТИ</button>
+                        <a href="/Register" type="submit" class="btn btn-danger">ЗАРЕГЕСТРИРОВАТЬСЯ</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </center>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
