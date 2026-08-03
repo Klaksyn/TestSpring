@@ -1,4 +1,4 @@
-package com.example.demo.Entity.Auth;
+package com.syneation.shortlinks.entity;
 
 import jakarta.persistence.*;
 
@@ -6,23 +6,37 @@ import java.util.Date;
 
 @Entity
 @Table(name = "users")
-public class AppUser {
-
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(unique = true, nullable = false)
+    private String login;
 
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(unique = true, nullable = false)
     private String phone;
-    private String address;
     private String password;
     private String role;
     private Date createdAt;
+    private Date updatedAt;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -40,6 +54,14 @@ public class AppUser {
         this.lastName = lastName;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -54,14 +76,6 @@ public class AppUser {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getPassword() {
@@ -86,5 +100,13 @@ public class AppUser {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

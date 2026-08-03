@@ -1,4 +1,4 @@
-package com.example.demo.Controllers;
+package com.example.demo.Controllers.Auth;
 
 import com.example.demo.Entity.Auth.AppUser;
 import jakarta.validation.Valid;
@@ -15,13 +15,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Date;
-import java.util.Optional;
 
 @Controller
-public class AccountController {
+public class AuthController {
 
     @Autowired
     private UserRepository userRepo;
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("success", false);
+        return "login";
+    }
 
     @GetMapping("/register")
     public String register(Model model) {
