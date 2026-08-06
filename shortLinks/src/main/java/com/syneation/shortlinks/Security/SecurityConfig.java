@@ -19,17 +19,17 @@ public class SecurityConfig {
         return httpSecurity.
                 authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**").permitAll()
-
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/main_pages/**").permitAll()
-                        .requestMatchers("/register").permitAll()
-                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/register").not().authenticated()
+                        .requestMatchers("/login").not().authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .usernameParameter("login")
                         .defaultSuccessUrl("/profile", true)
+                        .permitAll()
                 )
                 .logout(
                         config -> config.logoutSuccessUrl("/")

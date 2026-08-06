@@ -8,10 +8,10 @@ public class HomeController {
     @GetMapping({"", "/"})
     public String home() {
         return "index";
-    }
+    }act";
+}
+}
 
     @GetMapping("/contact")
     public String contact() {
-        return "contact";
-    }
-}
+        return "cont

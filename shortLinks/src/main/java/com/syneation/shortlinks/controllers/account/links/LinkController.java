@@ -1,4 +1,4 @@
-package com.syneation.shortlinks.controllers.profile;
+package com.syneation.shortlinks.controllers.account.links;
 
 import com.syneation.shortlinks.Security.UserPrincipal;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -6,21 +6,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @Controller
-public class ProfileController {
+public class LinkController {
 
-    @GetMapping("/profile")
-    public String profilePage(
+    @GetMapping("/profile/links")
+    public String ownLinkPage(
             Model model,
             @AuthenticationPrincipal UserPrincipal userPrincipal
-    ) {
+            ) {
+
         if (userPrincipal != null) {
-            String name = userPrincipal.getUsername();
-            model.addAttribute("name", name);
-            model.addAttribute("success", true);
-            return "account/profile";
+            model.addAttribute("name", userPrincipal.getUsername());
+            return "account/links/links";
         }
+
         return "redirect:/login";
     }
+
 }

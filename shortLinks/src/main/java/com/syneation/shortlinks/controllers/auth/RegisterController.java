@@ -1,10 +1,12 @@
 package com.syneation.shortlinks.controllers.auth;
 
 import com.syneation.shortlinks.Repository.UserRepository;
+import com.syneation.shortlinks.Security.UserPrincipal;
 import com.syneation.shortlinks.dto.auth.RegisterDto;
 import com.syneation.shortlinks.entity.Users;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +25,19 @@ public class RegisterController {
     private UserRepository userRepo;
 
     @GetMapping("/register")
-    public String registerPage(Model model) {
+    public String registerPage(
+            Model model,
+            @AuthenticationPrincipal UserPrincipal userPrincipal
+    ) {
+
+        if (userPrincipal != null)  {
+            model.addAttribute("name", userPrincipal.getUsername());
+            return "redirect:/profile";
+        }
+
         model.addAttribute("registerDto", new RegisterDto());
         model.addAttribute("success", false);
+
         return "auth/register";
     }
 
