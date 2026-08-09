@@ -31,8 +31,8 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/profile", true)
                         .permitAll()
                 )
-                .logout(
-                        config -> config.logoutSuccessUrl("/")
+                .logout( config -> config
+                        .logoutSuccessUrl("/")
                 )
                 .build();
     }

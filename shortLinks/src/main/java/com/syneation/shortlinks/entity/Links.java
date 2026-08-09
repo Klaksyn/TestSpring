@@ -12,8 +12,8 @@ public class Links {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_who_created", nullable = false)
-    private Users id_who_created;
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users creator;
 
     private String original_link;
     private String new_link;
@@ -29,12 +29,12 @@ public class Links {
         this.id = id;
     }
 
-    public Users getId_who_created() {
-        return id_who_created;
+    public Users getCreator() {
+        return creator;
     }
 
-    public void setId_who_created(Users id_who_created) {
-        this.id_who_created = id_who_created;
+    public void setCreator(Users creator) {
+        this.creator = creator;
     }
 
     public String getOriginal_link() {

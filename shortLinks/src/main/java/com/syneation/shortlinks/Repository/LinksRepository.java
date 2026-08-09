@@ -1,6 +1,5 @@
 package com.syneation.shortlinks.Repository;
 
-
 import com.syneation.shortlinks.entity.Links;
 import org.springframework.data.jpa.repository.JpaRepository;
 

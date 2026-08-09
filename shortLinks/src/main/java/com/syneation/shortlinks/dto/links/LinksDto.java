@@ -1,24 +1,23 @@
 package com.syneation.shortlinks.dto.links;
 
+import com.syneation.shortlinks.entity.Users;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class LinksDto {
 
-    @NotEmpty
-    private Long id_who_created;
+    @NotNull
+    private Long creator;
 
     @NotEmpty
     private String original_link;
 
-    @NotEmpty
-    private String new_link;
-
-    public Long getId_who_created() {
-        return id_who_created;
+    public Long getCreator() {
+        return creator;
     }
 
-    public void setId_who_created(Long id) {
-        id_who_created = id;
+    public void setCreator(Long id) {
+        creator = id;
     }
 
     public String getOriginal_link() {
@@ -29,11 +28,4 @@ public class LinksDto {
         this.original_link = original_link;
     }
 
-    public String getNew_link() {
-        return new_link;
-    }
-
-    public void setNew_link(String new_link) {
-        this.new_link = new_link;
-    }
 }

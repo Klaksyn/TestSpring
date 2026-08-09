@@ -55,4 +55,8 @@ public class UserPrincipal implements UserDetails {
     public Users getUsers() {
         return users;
     }
+
+    public String getRole() {
+        return users.getRole();
+    }
 }
