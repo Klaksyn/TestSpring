@@ -1,4 +1,4 @@
-package com.syneation.shortlinks.entity;
+package com.syneation.shortlinks.model;
 
 import jakarta.persistence.*;
 

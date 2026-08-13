@@ -49,7 +49,76 @@
     </div>
   </div>
 
-  <!-- here's your code  -->
+  <div class="flex-grow-1">
+    <div th:if="${error}"
+         class="alert alert-danger alert-dismissible fade show text-center mb-4"
+         role="alert">
+      <span th:text="${error}">error</span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div th:if="${success}"
+         class="alert alert-success alert-dismissible fade show text-center mb-4"
+         role="alert">
+      <span th:text="${success}">success</span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div th:if="${#lists.isEmpty(linksList)}">
+      <h1 class="text-center">У вас нету ссылок</h1>
+    </div>
+
+    <table class="table table-dark table-hover"
+           th:if="${not #lists.isEmpty(linksList)}">
+      <thead>
+        <tr class="text-center">
+          <th>оригинальная ссылка</th>
+          <th>новая ссылка</th>
+          <th>количество переходов</th>
+          <th>действие</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="link : ${linksList}">
+
+          <td>
+            <a class="btn btn-link p-0 text-decoration-none"
+               target="_blank"
+               th:href="${link.original_link}"
+               th:text="${link.original_link}">
+              original
+            </a>
+          </td>
+
+          <td>
+            <a class="btn btn-link text-decoration-none"
+              th:href="'http://localhost:8081/' + ${link.new_link}"
+              target="_blank">
+              <i class="bi bi-box-arrow-up-right me-1"></i>
+              <span th:text="'http://localhost:8081/' + ${link.new_link}">server</span>
+            </a>
+          </td>
+
+          <td class="text-center fw-bold text-secondary"
+              th:text="${link.clicks}">
+            1
+          </td>
+
+          <td class="text-center">
+            <form th:action="@{/profile/links/manage}" method="post" class="d-line">
+              <input type="hidden" name="idLink" th:value="${link.id}">
+              <button class="btn btn-warning" name="action" value="unactivate">
+                Деактивировать
+              </button>
+              <button class="btn btn-danger" value="delete" name="action">
+                Удалить
+              </button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

@@ -1,7 +1,6 @@
 package com.syneation.shortlinks.Security;
 
-import com.syneation.shortlinks.entity.Users;
-import org.jspecify.annotations.Nullable;
+import com.syneation.shortlinks.model.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

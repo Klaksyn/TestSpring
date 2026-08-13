@@ -1,9 +1,7 @@
 package com.syneation.shortlinks.controllers.auth;
 
-import com.syneation.shortlinks.Repository.UserRepository;
 import com.syneation.shortlinks.Security.UserPrincipal;
-import com.syneation.shortlinks.dto.auth.RegisterDto;
-import com.syneation.shortlinks.entity.Users;
+import com.syneation.shortlinks.model.Users;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
