@@ -5,7 +5,6 @@ import com.syneation.shortlinks.controllers.links.helpers.HelperLink;
 import com.syneation.shortlinks.controllers.links.model.Links;
 import com.syneation.shortlinks.controllers.user.Role;
 import com.syneation.shortlinks.controllers.user.Users;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,6 +25,9 @@ public class LinkController {
 
     private final LinksRepository linksRepo;
     private final LinksService linksService;
+
+    @Value("${redirector.base-url}")
+    private String redirectorBaseUrl;
 
     public LinkController(
             LinksRepository linksRepo,
@@ -62,10 +64,12 @@ public class LinkController {
             @AuthenticationPrincipal UserPrincipal userPrincipal
     ) {
         if (userPrincipal != null) {
-            LinksDto linksDto = new LinksDto();
+            if (!model.containsAttribute("linksDto")) {
+                LinksDto linksDto = new LinksDto();
+                model.addAttribute("linksDto", linksDto);
+            }
 
             model.addAttribute("name", userPrincipal.getUsername());
-            model.addAttribute("linksDto", linksDto);
             model.addAttribute("currentId", userPrincipal.getUsers().getId());
 
             return "account/links/new";
@@ -74,15 +78,11 @@ public class LinkController {
         return "redirect:/login";
     }
 
-    @Value("${redirector.base-url}")
-    private String redirectorBaseUrl;
-
     @PostMapping("/profile/links/new")
     public String createLink(
             @Valid @ModelAttribute LinksDto linksDto,
             BindingResult bindingResult,
             @AuthenticationPrincipal UserPrincipal userPrincipal,
-            HttpServletRequest request,
             RedirectAttributes redirectAttributes)
     {
 
@@ -95,16 +95,21 @@ public class LinkController {
                 redirectAttributes.addFlashAttribute("error",
                         "[DEBUG] [ERROR]: " + bindingResult.getAllErrors());
             }
-            else redirectAttributes.addFlashAttribute("error",
-                    "Неизвестная Ошибка!");
+
 
             redirectAttributes.addFlashAttribute("name",
                     userPrincipal.getUsername());
+            redirectAttributes.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.linksDto",
+                    bindingResult
+            );
+
+            redirectAttributes.addFlashAttribute("linksDto", linksDto);
 
             return "redirect:/profile/links/new";
         }
 
-        String new_link = HelperLink.generateLink(14);
+        String new_link = HelperLink.generateLink(linksDto.getLenUrl());
 
         try {
             Users user = userPrincipal.getUsers();
@@ -160,22 +165,17 @@ public class LinkController {
 
         HelperLink hLink = new HelperLink(userPrincipal, linksService, redirectAttributes);
 
-        if ("cancel".equals(action)) {
-            return "redirect:/profile/links";
-        }
-        else if ("delete".equals(action)) {
-           return hLink.deleteLink(idLink);
-        }
-        else if ("deactivate".equals(action)) {
-            return hLink.deactivateLink(idLink);
-        }
-        else if ("activate".equals(action)) {
-            return hLink.activateLink(idLink);
-        }
-
-        redirectAttributes.addFlashAttribute("error",
-                "Произошла неизвестная ошибка!");
-        return "redirect:/profile/links";
+        return switch (action) {
+            case "cancel" -> "redirect:/profile/links";
+            case "delete" -> hLink.deleteLink(idLink);
+            case "deactivate" -> hLink.deactivateLink(idLink);
+            case "activate" -> hLink.activateLink(idLink);
+            default -> {
+                redirectAttributes.addFlashAttribute("error",
+                        "Произошла неизвестная ошибка!");
+                yield  "redirect:/profile/links";
+            }
+        };
     }
 
 

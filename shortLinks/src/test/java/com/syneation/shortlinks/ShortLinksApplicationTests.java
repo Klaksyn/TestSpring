@@ -19,7 +19,7 @@ class ShortLinksApplicationTests {
     @DisplayName("Test: generateLinksOnLen")
     public void testGenerateLinksOnLen() {
         int expected = 6;
-        int actual = HelperLink.generateLink(6).length();
+        int actual = HelperLink.generateLink((short) 6).length();
 
         assertEquals(expected, actual);
     }

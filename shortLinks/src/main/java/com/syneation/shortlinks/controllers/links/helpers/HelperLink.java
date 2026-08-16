@@ -25,7 +25,7 @@ public class HelperLink {
         this.redirectAttributes = redirectAttributes;
     }
 
-    public static String generateLink(final int len) {
+    public static String generateLink(final short len) {
 
         ThreadLocalRandom random = ThreadLocalRandom.current();
         StringBuilder sb = new StringBuilder();

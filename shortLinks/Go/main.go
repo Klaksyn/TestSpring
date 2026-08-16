@@ -12,6 +12,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//========================================
+// Manager of transitions via new links
+//========================================
+
 func main() {
 
 	database.Connect()
