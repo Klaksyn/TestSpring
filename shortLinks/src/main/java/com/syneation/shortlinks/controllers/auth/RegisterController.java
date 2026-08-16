@@ -1,7 +1,8 @@
 package com.syneation.shortlinks.controllers.auth;
 
 import com.syneation.shortlinks.Security.UserPrincipal;
-import com.syneation.shortlinks.model.Users;
+import com.syneation.shortlinks.controllers.user.Role;
+import com.syneation.shortlinks.controllers.user.Users;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -72,7 +73,7 @@ public class RegisterController {
             newUser.setEmail(registerDto.getEmail());
             newUser.setPhone(registerDto.getPhone());
             newUser.setPhone("000000000000");
-            newUser.setRole("user");
+            newUser.setRole(Role.USER);
             newUser.setCreatedAt(new Date());
             newUser.setUpdatedAt(new Date());
             newUser.setPassword(bCryptEncoder.encode(registerDto.getPassword()));

@@ -105,12 +105,19 @@
           </td>
 
           <td class="text-center">
-            <form th:action="@{/profile/links/manage}" method="post" class="d-line">
-              <input type="hidden" name="idLink" th:value="${link.id}">
-              <button class="btn btn-warning" name="action" value="unactivate">
+            <form th:action="@{/profile/links/manager}" method="post" class="d-line"
+                  onsubmit="return confirm('вы уверены совершить действие?')">
+              <input type="hidden" name="idLink" th:value="${link.id}" />
+
+              <button type="submit" th:if="${link.isActive}" class="btn btn-warning" name="action" value="deactivate">
                 Деактивировать
               </button>
-              <button class="btn btn-danger" value="delete" name="action">
+              <button type="submit" th:if="!${link.isActive}" class="btn btn-secondary"
+                      name="action" value="activate">
+                Активировать
+              </button>
+
+              <button class="btn btn-danger" name="action" value="delete">
                 Удалить
               </button>
             </form>

@@ -4,22 +4,12 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public class LinksDto {
-    @NotNull
-    private Long id;
 
     @NotNull
     private Long creator;
 
     @NotEmpty
     private String original_link;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getCreator() {
         return creator;

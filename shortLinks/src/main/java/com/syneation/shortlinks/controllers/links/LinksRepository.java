@@ -1,15 +1,22 @@
 package com.syneation.shortlinks.controllers.links;
 
-import com.syneation.shortlinks.model.Links;
+import com.syneation.shortlinks.controllers.links.model.Links;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface LinksRepository extends JpaRepository<Links, Integer> {
 
-    Optional<Links> findById(Long id);
+public interface LinksRepository extends JpaRepository<Links, Long> {
 
     List<Links> findLinksByCreator_Id(Long creatorId);
+
+    @Modifying
+    @Transactional
+    @Query("update Links l set l.isActive = :isActive where l.id = :id")
+    void updateActivateStatus(@Param("id") Long id, @Param("isActive") boolean isActive);
 
 }
